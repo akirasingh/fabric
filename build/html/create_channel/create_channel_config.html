@@ -1,0 +1,608 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Using configtx.yaml to build a channel configuration &#8212; hyperledger-fabricdocs master documentation</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Channel policies" href="channel_policies.html" />
+    <link rel="prev" title="Create a channel using the test network" href="create_channel_test_net.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+<div class="container-xl">
+
+    <a class="navbar-brand" href="../index.html">
+    
+      <p class="title">hyperledger-fabricdocs</p>
+    
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../intro.html">Introduction</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../whatsnew.html">What’s new in Hyperledger Fabric v2.x</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href=""></a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../key_concepts.html">Key Concepts</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../getting_started.html">Getting Started - Install</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../getting_started_run_fabric.html">Getting Started - Run Fabric</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../developapps/developing_applications.html">Developing Applications</a>
+        </li>
+        
+        <li class="nav-item active">
+            <a class="nav-link" href="../tutorials.html">Tutorials</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../deployment_guide_overview.html">Deploying a production network</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../ops_guide.html">Operations Guides</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../upgrade.html">Upgrading to the latest release</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../command_ref.html">Commands Reference</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../architecture.html">Architecture Reference</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../Fabric-FAQ.html">Frequently Asked Questions</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../CONTRIBUTING.html">Contributions Welcome!</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../glossary.html">Glossary</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../releases.html">Releases</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../questions.html">Still Have Questions?</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../status.html">Status</a>
+        </li>
+        
+        
+      </ul>
+
+
+      
+
+      <ul class="navbar-nav">
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+          <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+    <div class="bd-toc-item active">
+    
+  
+    <ul class="nav bd-sidenav">
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+          
+            
+                <li class="">
+                    <a href="../test_network.html">Using the Fabric test network</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="../deploy_chaincode.html">Deploying a smart contract to a channel</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="../write_first_app.html">Running a Fabric Application</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="../tutorial/commercial_paper.html">Commercial paper tutorial</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="../private_data_tutorial.html">Using Private Data in Fabric</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="../secured_asset_transfer/secured_private_asset_transfer_tutorial.html">Secured asset transfer in Fabric</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="../couchdb_tutorial.html">Using CouchDB</a>
+                </li>
+            
+          
+            
+  
+                <li class="active">
+                    <a href="create_channel_overview.html">Creating a channel</a>
+                    <ul>
+                    
+                        <li class="">
+                            <a href="create_channel_participation.html">Create a channel</a>
+                        </li>
+                    
+                        <li class="">
+                            <a href="create_channel_test_net.html">Create a channel using the test network</a>
+                        </li>
+                    
+                        <li class="active">
+                            <a href="">Using configtx.yaml to build a channel configuration</a>
+                        </li>
+                    
+                        <li class="">
+                            <a href="channel_policies.html">Channel policies</a>
+                        </li>
+                    
+                    </ul>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="../channel_update_tutorial.html">Adding an Org to a Channel</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="../config_update.html">Updating a channel configuration</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="../chaincode4ade.html">Writing Your First Chaincode</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="../peer-chaincode-devmode.html">Running chaincode in development mode</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="../videos.html">Videos</a>
+                </li>
+            
+          
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      </ul>
+  
+  </nav>
+          </div>
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#overview" class="nav-link">Overview</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#organizations" class="nav-link">Organizations</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#capabilities" class="nav-link">Capabilities</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#application" class="nav-link">Application</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#orderer" class="nav-link">Orderer</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#channel" class="nav-link">Channel</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#profiles" class="nav-link">Profiles</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#twoorgsorderergenesis" class="nav-link">TwoOrgsOrdererGenesis</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#twoorgschannel" class="nav-link">TwoOrgsChannel</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#sampleappchanneletcdraft" class="nav-link">SampleAppChannelEtcdRaft</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+    </ul>
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="using-configtx-yaml-to-build-a-channel-configuration">
+<h1>Using configtx.yaml to build a channel configuration<a class="headerlink" href="#using-configtx-yaml-to-build-a-channel-configuration" title="Permalink to this headline">¶</a></h1>
+<p>A channel is created by building a channel creation transaction artifact that specifies the initial configuration of the channel. The <strong>channel configuration</strong> is stored on the ledger, and governs all the subsequent blocks that are added to the channel. The channel configuration specifies which organizations are channel members, the ordering nodes that can add new blocks on the channel, as well as the policies that govern channel updates. The initial channel configuration, stored in the channel genesis block, can be updated through channel configuration updates. If a sufficient number of organizations approve a channel update, a new channel config block will govern the channel after it is committed to the channel.</p>
+<p>While it is possible to build the channel creation transaction file manually, it is easier to create a channel by using the <code class="docutils literal notranslate"><span class="pre">configtx.yaml</span></code> file and the <a class="reference external" href="../commands/configtxgen.html">configtxgen</a> tool. The <code class="docutils literal notranslate"><span class="pre">configtx.yaml</span></code> file contains the information that is required to build the channel configuration in a format that can be easily read and edited by humans. The <code class="docutils literal notranslate"><span class="pre">configtxgen</span></code> tool reads the information in the <code class="docutils literal notranslate"><span class="pre">configtx.yaml</span></code> file and writes it to the <a class="reference external" href="https://developers.google.com/protocol-buffers">protobuf format</a> that can be read by Fabric.</p>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>You can use this tutorial to learn how to use the <code class="docutils literal notranslate"><span class="pre">configtx.yaml</span></code> file to build the initial channel configuration that is stored in the genesis block. The tutorial will discuss the portion of channel configuration that is built by each section of file.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="#organizations">Organizations</a></p></li>
+<li><p><a class="reference external" href="#capabilities">Capabilities</a></p></li>
+<li><p><a class="reference external" href="#application">Application</a></p></li>
+<li><p><a class="reference external" href="#orderer">Orderer</a></p></li>
+<li><p><a class="reference external" href="#channel">Channel</a></p></li>
+<li><p><a class="reference external" href="#profiles">Profiles</a></p></li>
+</ul>
+<p>Because different sections of the file work together to create the policies that govern the channel, we will discuss channel policies in <a class="reference external" href="channel_policies.html">their own tutorial</a>.</p>
+<p>Building off of the <a class="reference external" href="create_channel.html">Creating a channel tutorial</a>, we will use the <code class="docutils literal notranslate"><span class="pre">configtx.yaml</span></code> file that is used to deploy the Fabric test network as an example. Open a command terminal on your local machine and navigate to the <code class="docutils literal notranslate"><span class="pre">test-network</span></code> directory in your local clone of the Fabric samples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">fabric</span><span class="o">-</span><span class="n">samples</span><span class="o">/</span><span class="n">test</span><span class="o">-</span><span class="n">network</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">configtx.yaml</span></code> file used by the test network is located in the <code class="docutils literal notranslate"><span class="pre">configtx</span></code> folder. Open the file in a text editor. You can refer back to this file as the tutorial goes through each section. You can find a more detailed version of the <code class="docutils literal notranslate"><span class="pre">configtx.yaml</span></code> file in the <a class="reference external" href="https://github.com/hyperledger/fabric/blob/%7BBRANCH%7D/sampleconfig/configtx.yaml">Fabric sample configuration</a>.</p>
+</div>
+<div class="section" id="organizations">
+<h2>Organizations<a class="headerlink" href="#organizations" title="Permalink to this headline">¶</a></h2>
+<p>The most important information contained in the channel configuration are the organizations that are channel members.  Each organization is identified by an MSP ID and a <a class="reference external" href="../membership/membership.html">channel MSP</a>. The channel MSP is stored in the channel configuration and contains the certificates that are used to the identify the nodes, applications, and administrators of an organization. The <strong>Organizations</strong> section of <code class="docutils literal notranslate"><span class="pre">configtx.yaml</span></code> file is used to create the channel MSP and accompanying MSP ID for each member of the channel.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">configtx.yaml</span></code> file used by the test network contains three organizations. Two organizations are peer organizations, Org1 and Org2, that can be added to application channels. One organization, OrdererOrg, is the administrator of the ordering service. Because it is a best practice to use different certificate authorities to deploy peer nodes and ordering nodes, organizations are often referred to as peer organizations or ordering organizations, even if they are in fact run by the same company.</p>
+<p>You can see the part of <code class="docutils literal notranslate"><span class="pre">configtx.yaml</span></code> that defines Org1 of the test network below:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span> <span class="nl">&amp;Org1</span>
+    <span class="c1"># DefaultOrg defines the organization which is used in the sampleconfig</span>
+    <span class="c1"># of the fabric.git development environment</span>
+    <span class="nt">Name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Org1MSP</span>
+
+    <span class="c1"># ID to load the MSP definition as</span>
+    <span class="nt">ID</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Org1MSP</span>
+
+    <span class="nt">MSPDir</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">../organizations/peerOrganizations/org1.example.com/msp</span>
+
+    <span class="c1"># Policies defines the set of policies at this level of the config tree</span>
+    <span class="c1"># For organization policies, their canonical path is usually</span>
+    <span class="c1">#   /Channel/&lt;Application|Orderer&gt;/&lt;OrgName&gt;/&lt;PolicyName&gt;</span>
+    <span class="nt">Policies</span><span class="p">:</span>
+        <span class="nt">Readers</span><span class="p">:</span>
+            <span class="nt">Type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Signature</span>
+            <span class="nt">Rule</span><span class="p">:</span> <span class="s">&quot;OR(&#39;Org1MSP.admin&#39;,</span><span class="nv"> </span><span class="s">&#39;Org1MSP.peer&#39;,</span><span class="nv"> </span><span class="s">&#39;Org1MSP.client&#39;)&quot;</span>
+        <span class="nt">Writers</span><span class="p">:</span>
+            <span class="nt">Type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Signature</span>
+            <span class="nt">Rule</span><span class="p">:</span> <span class="s">&quot;OR(&#39;Org1MSP.admin&#39;,</span><span class="nv"> </span><span class="s">&#39;Org1MSP.client&#39;)&quot;</span>
+        <span class="nt">Admins</span><span class="p">:</span>
+            <span class="nt">Type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Signature</span>
+            <span class="nt">Rule</span><span class="p">:</span> <span class="s">&quot;OR(&#39;Org1MSP.admin&#39;)&quot;</span>
+        <span class="nt">Endorsement</span><span class="p">:</span>
+            <span class="nt">Type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Signature</span>
+            <span class="nt">Rule</span><span class="p">:</span> <span class="s">&quot;OR(&#39;Org1MSP.peer&#39;)&quot;</span>
+</pre></div>
+</div>
+<ul>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">Name</span></code> field is an informal name used to identify the organization.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">ID</span></code> field is the organization’s MSP ID. The MSP ID acts as a unique identifier for your organization, and is referred to by channel policies and is included in the transactions submitted to the channel.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">MSPDir</span></code> is the path to an MSP folder that was created by the organization. The <code class="docutils literal notranslate"><span class="pre">configtxgen</span></code> tool will use this MSP folder to create the channel MSP. This MSP folder needs to contain the following information, which will be transferred to the channel MSP and stored in the channel configuration:</p>
+<ul class="simple">
+<li><p>A CA root certificate that establishes the root of trust for the organization. The CA root cert is used to verify if an application, node, or administrator belongs to a channel member.</p></li>
+<li><p>A root cert from the TLS CA that issued the TLS certificates of the peer or orderer nodes. The TLS root cert is used to identify the organization by the gossip protocol.</p></li>
+<li><p>If Node OUs are enabled, the MSP folder needs to contain a <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> file that identifies the administrators, nodes, and clients based on the OUs of their x509 certificates.</p></li>
+<li><p>If Node OUs are not enabled, the MSP needs to contain an admincerts folder that contains the signing certificates of the organizations administrator identities.</p></li>
+</ul>
+<p>The MSP folder that is used to create the channel MSP only contains public certificates. As a result, you can build the MSP folder locally, and then send the MSP to the organization that is creating the channel.</p>
+</li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">Policies</span></code> section is used to define a set of signature policies that reference the channel member. We will discuss these policies in more detail when we discuss <a class="reference external" href="channel_policies.html">channel policies</a>.</p></li>
+</ul>
+</div>
+<div class="section" id="capabilities">
+<h2>Capabilities<a class="headerlink" href="#capabilities" title="Permalink to this headline">¶</a></h2>
+<p>Fabric channels can be joined by orderer and peer nodes that are running different versions of Hyperledger Fabric. Channel capabilities allow organizations that are running different Fabric binaries to participate on the same channel by only enabling certain features. For example, organizations that are running Fabric v1.4 and organizations that are running Fabric v2.x can join the same channel as long as the channel capabilities levels are set to V1_4_X or below. None of the channel members will be able to use the features introduced in Fabric v2.0.</p>
+<p>If you examine the <code class="docutils literal notranslate"><span class="pre">configtx.yaml</span></code> file, you will see three capability groups:</p>
+<ul class="simple">
+<li><p><strong>Application</strong> capabilities govern the features that are used by peer nodes, such as the Fabric chaincode lifecycle, and set the minimum version of the Fabric binaries that can be run by peers joined to the channel.</p></li>
+<li><p><strong>Orderer</strong> capabilities govern the features that are used by orderer nodes, such as Raft consensus, and set the minimum version of the Fabric binaries that can be run by ordering nodes that belong to the channel consenter set.</p></li>
+<li><p><strong>Channel</strong> capabilities set the minimum version of the Fabric that can be run by peer and ordering nodes.</p></li>
+</ul>
+<p>Because both of the peers and the ordering node of the Fabric test network run version v2.x, every capability group is set to <code class="docutils literal notranslate"><span class="pre">V2_0</span></code>. As a result, the test network cannot be joined by nodes that run a lower version of Fabric than v2.0. For more information, see the <a class="reference external" href="../capabilities_concept.html">capabilities</a> concept topic.</p>
+</div>
+<div class="section" id="application">
+<h2>Application<a class="headerlink" href="#application" title="Permalink to this headline">¶</a></h2>
+<p>The application section defines the policies that govern how peer organizations can interact with application channels. These policies govern the number of peer organizations that need to approve a chaincode definition or sign a request to update the channel configuration. These policies are also used to restrict access to channel resources, such as the ability to write to the channel ledger or to query channel events.</p>
+<p>The test network uses the default application policies provided by Hyperledger Fabric. If you use the default policies, all peer organizations will be able to read and write data to the ledger. The default policies also require that a majority of channel members sign channel configuration updates and that a majority of channel members need to approve a chaincode definition before a chaincode can be deployed to a channel. The contents of this section are discussed in more detail in the <a class="reference external" href="channel_policies.html">channel policies</a> tutorial.</p>
+</div>
+<div class="section" id="orderer">
+<h2>Orderer<a class="headerlink" href="#orderer" title="Permalink to this headline">¶</a></h2>
+<p>Each channel configuration includes the orderer nodes in the channel <a class="reference external" href="../glossary.html#consenter-set">consenter set</a>. The consenter set is the group of ordering nodes that have the ability to create new blocks and distribute them to the peers joined to the channel. The endpoint information of each ordering node that is a member of the consenter set is stored in the channel configuration.</p>
+<p>The test network uses the <strong>Orderer</strong> section of the <code class="docutils literal notranslate"><span class="pre">configtx.yaml</span></code> file to create a single node Raft ordering service.</p>
+<ul>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">OrdererType</span></code> field is used to select Raft as the consensus type:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">OrdererType</span><span class="p">:</span> <span class="n">etcdraft</span>
+</pre></div>
+</div>
+<p>Raft ordering services are defined by the list of consenters that can participate in the consensus process. Because the test network only uses a single ordering node, the consenters list contains only one endpoint:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">EtcdRaft</span><span class="p">:</span>
+    <span class="nt">Consenters</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">Host</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">orderer.example.com</span>
+      <span class="nt">Port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">7050</span>
+      <span class="nt">ClientTLSCert</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">../organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.crt</span>
+      <span class="nt">ServerTLSCert</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">../organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/server.crt</span>
+    <span class="nt">Addresses</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">orderer.example.com:7050</span>
+</pre></div>
+</div>
+<p>Each ordering node in the list of consenters is identified by their endpoint address and their client and server TLS certificate. If you are deploying a multi-node ordering service, you would need to provide the hostname, port, and the path to the TLS certificates used by each node. You would also need to add the endpoint address of each ordering node to the list of <code class="docutils literal notranslate"><span class="pre">Addresses</span></code>.</p>
+</li>
+<li><p>You can use the <code class="docutils literal notranslate"><span class="pre">BatchTimeout</span></code> and <code class="docutils literal notranslate"><span class="pre">BatchSize</span></code> fields to tune the latency and throughput of the channel by changing the maximum size of each block and how often a new block is created.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">Policies</span></code> section creates the policies that govern the channel consenter set. The test network uses the default policies provided by Fabric, which require that a majority of orderer administrators approve the addition or removal of ordering nodes, organizations, or an update to the block cutting parameters.</p></li>
+</ul>
+<p>Because the test network is used for development and testing, it uses an ordering service that consists of a single ordering node. Networks that are deployed in production should use a multi-node ordering service for security and availability. To learn more, see <a class="reference external" href="../raft_configuration.html">Configuring and operating a Raft ordering service</a>.</p>
+</div>
+<div class="section" id="channel">
+<h2>Channel<a class="headerlink" href="#channel" title="Permalink to this headline">¶</a></h2>
+<p>The channel section defines that policies that govern the highest level of the channel configuration. For an application channel, these policies govern the hashing algorithm, the data hashing structure used to create new blocks, and the channel capability level. In the system channel, these policies also govern the creation or removal of consortiums of peer organizations.</p>
+<p>The test network uses the default policies provided by Fabric, which require that a majority of orderer service administrators would need to approve updates to these values in the system channel. In an application channel, changes would need to be approved by a majority of orderer organizations and a majority of channel members. Most users will not need to change these values.</p>
+</div>
+<div class="section" id="profiles">
+<h2>Profiles<a class="headerlink" href="#profiles" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">configtxgen</span></code> tool reads the channel profiles in the <strong>Profiles</strong> section to build a channel configuration. Each profile uses YAML syntax to gather data from other sections of the file. The <code class="docutils literal notranslate"><span class="pre">configtxgen</span></code> tool uses this configuration to create a channel creation transaction for an applications channel, or to write the channel genesis block for a system channel. To learn more about YAML syntax, <a class="reference external" href="https://en.wikipedia.org/wiki/YAML">Wikipedia</a> provides a good place to get started.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">configtx.yaml</span></code> used by the test network contains two channel profiles, <code class="docutils literal notranslate"><span class="pre">TwoOrgsOrdererGenesis</span></code> and <code class="docutils literal notranslate"><span class="pre">TwoOrgsChannel</span></code>. If you want to create a channel without a system channel by using the <code class="docutils literal notranslate"><span class="pre">osnadmin</span> <span class="pre">CLI</span></code> then you can refer to the <code class="docutils literal notranslate"><span class="pre">SampleAppChannelEtcdRaft</span></code></p>
+<div class="section" id="twoorgsorderergenesis">
+<h3>TwoOrgsOrdererGenesis<a class="headerlink" href="#twoorgsorderergenesis" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">TwoOrgsOrdererGenesis</span></code> profile is used to create the system channel genesis block:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">TwoOrgsOrdererGenesis</span><span class="p">:</span>
+    <span class="nt">&lt;&lt;</span><span class="p">:</span> <span class="nv">*ChannelDefaults</span>
+    <span class="nt">Orderer</span><span class="p">:</span>
+        <span class="nt">&lt;&lt;</span><span class="p">:</span> <span class="nv">*OrdererDefaults</span>
+        <span class="nt">Organizations</span><span class="p">:</span>
+            <span class="p p-Indicator">-</span> <span class="nv">*OrdererOrg</span>
+        <span class="nt">Capabilities</span><span class="p">:</span>
+            <span class="nt">&lt;&lt;</span><span class="p">:</span> <span class="nv">*OrdererCapabilities</span>
+    <span class="nt">Consortiums</span><span class="p">:</span>
+        <span class="nt">SampleConsortium</span><span class="p">:</span>
+            <span class="nt">Organizations</span><span class="p">:</span>
+                <span class="p p-Indicator">-</span> <span class="nv">*Org1</span>
+                <span class="p p-Indicator">-</span> <span class="nv">*Org2</span>
+</pre></div>
+</div>
+<p>The system channel defines the nodes of the ordering service and the set of organizations that are ordering service administrators. The system channel also includes a set of peer organizations that belong to the blockchain <a class="reference external" href="../glossary.html#consortium">consortium</a>. The channel MSP of each member of the consortium is included in the system channel, allowing them to create new application channels and add consortium members to the new channel.</p>
+<p>The profile creates a consortium named <code class="docutils literal notranslate"><span class="pre">SampleConsortium</span></code> that contains the two peer organizations in the <code class="docutils literal notranslate"><span class="pre">configtx.yaml</span></code> file, Org1 and Org2. The <code class="docutils literal notranslate"><span class="pre">Orderer</span></code> section of the profile uses the single node Raft ordering service defined in the <strong>Orderer:</strong> section of the file. The OrdererOrg from the <strong>Organizations:</strong> section is made the only administrator of the ordering service. Because our only ordering node is running Fabric 2.x, we can set the orderer system channel capability to <code class="docutils literal notranslate"><span class="pre">V2_0</span></code>. The system channel uses default policies from the <strong>Channel</strong> section and enables <code class="docutils literal notranslate"><span class="pre">V2_0</span></code> as the channel capability level.</p>
+</div>
+<div class="section" id="twoorgschannel">
+<h3>TwoOrgsChannel<a class="headerlink" href="#twoorgschannel" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">TwoOrgsChannel</span></code> profile is used by the test network to create application channels:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">TwoOrgsChannel</span><span class="p">:</span>
+    <span class="nt">Consortium</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">SampleConsortium</span>
+    <span class="nt">&lt;&lt;</span><span class="p">:</span> <span class="nv">*ChannelDefaults</span>
+    <span class="nt">Application</span><span class="p">:</span>
+        <span class="nt">&lt;&lt;</span><span class="p">:</span> <span class="nv">*ApplicationDefaults</span>
+        <span class="nt">Organizations</span><span class="p">:</span>
+            <span class="p p-Indicator">-</span> <span class="nv">*Org1</span>
+            <span class="p p-Indicator">-</span> <span class="nv">*Org2</span>
+        <span class="nt">Capabilities</span><span class="p">:</span>
+            <span class="nt">&lt;&lt;</span><span class="p">:</span> <span class="nv">*ApplicationCapabilities</span>
+</pre></div>
+</div>
+<p>The system channel is used by the ordering service as a template to create application channels. The nodes of the ordering service that are defined in the system channel become the default consenter set of new channels, while the administrators of the ordering service become the orderer administrators of the channel. The channel MSPs of channel members are transferred to the new channel from the system channel. After the channel is created, ordering nodes can be added or removed from the channel by updating the channel configuration. You can also update the channel configuration to <a class="reference external" href="../channel_update_tutorial.html">add other organizations as channel members</a>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">TwoOrgsChannel</span></code> provides the name of the consortium, <code class="docutils literal notranslate"><span class="pre">SampleConsortium</span></code>, hosted by the test network system channel. As a result, the ordering service defined in the <code class="docutils literal notranslate"><span class="pre">TwoOrgsOrdererGenesis</span></code> profile becomes channel consenter set. In the <code class="docutils literal notranslate"><span class="pre">Application</span></code> section, both organizations from the consortium, Org1 and Org2, are included as channel members. The channel uses <code class="docutils literal notranslate"><span class="pre">V2_0</span></code> as the application capabilities, and uses the default policies from the <strong>Application</strong> section to govern how peer organizations will interact with the channel. The application channel also uses the default policies from the <strong>Channel</strong> section and enables <code class="docutils literal notranslate"><span class="pre">V2_0</span></code> as the channel capability level.</p>
+</div>
+<div class="section" id="sampleappchanneletcdraft">
+<h3>SampleAppChannelEtcdRaft<a class="headerlink" href="#sampleappchanneletcdraft" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">SampleAppChannelEtcdRaft</span></code> profile is provided for customers that prefer to create a channel without a system channel by using the <code class="docutils literal notranslate"><span class="pre">osnadmin</span> <span class="pre">CLI</span></code>. The major difference is that a consortium definition is no longer required. Check out the <a class="reference external" href="create_channel_participation.html">Create a channel</a> tutorial to learn more about how to use this profile.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SampleAppChannelEtcdRaft</span><span class="p">:</span>
+    <span class="o">&lt;&lt;</span><span class="p">:</span> <span class="o">*</span><span class="n">ChannelDefaults</span>
+    <span class="n">Orderer</span><span class="p">:</span>
+        <span class="o">&lt;&lt;</span><span class="p">:</span> <span class="o">*</span><span class="n">OrdererDefaults</span>
+        <span class="n">OrdererType</span><span class="p">:</span> <span class="n">etcdraft</span>
+        <span class="n">Organizations</span><span class="p">:</span>
+            <span class="o">-</span> <span class="o">&lt;&lt;</span><span class="p">:</span> <span class="o">*</span><span class="n">SampleOrg</span>
+              <span class="n">Policies</span><span class="p">:</span>
+                  <span class="o">&lt;&lt;</span><span class="p">:</span> <span class="o">*</span><span class="n">SampleOrgPolicies</span>
+                  <span class="n">Admins</span><span class="p">:</span>
+                      <span class="n">Type</span><span class="p">:</span> <span class="n">Signature</span>
+                      <span class="n">Rule</span><span class="p">:</span> <span class="s2">&quot;OR(&#39;SampleOrg.member&#39;)&quot;</span>
+    <span class="n">Application</span><span class="p">:</span>
+        <span class="o">&lt;&lt;</span><span class="p">:</span> <span class="o">*</span><span class="n">ApplicationDefaults</span>
+        <span class="n">Organizations</span><span class="p">:</span>
+            <span class="o">-</span> <span class="o">&lt;&lt;</span><span class="p">:</span> <span class="o">*</span><span class="n">SampleOrg</span>
+              <span class="n">Policies</span><span class="p">:</span>
+                  <span class="o">&lt;&lt;</span><span class="p">:</span> <span class="o">*</span><span class="n">SampleOrgPolicies</span>
+                  <span class="n">Admins</span><span class="p">:</span>
+                      <span class="n">Type</span><span class="p">:</span> <span class="n">Signature</span>
+                      <span class="n">Rule</span><span class="p">:</span> <span class="s2">&quot;OR(&#39;SampleOrg.member&#39;)&quot;</span>
+</pre></div>
+</div>
+<p>For simplicity, this snippet assumes that the peers and orderers belong to the same organization <code class="docutils literal notranslate"><span class="pre">SampleOrg</span></code>. For a production deployment however, it is recommended that the peer and ordering nodes belong to separate organizations.</p>
+</div>
+</div>
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="create_channel_test_net.html" title="previous page">Create a channel using the test network</a>
+    <a class='right-next' id="next-link" href="channel_policies.html" title="next page">Channel policies</a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright Hyperledger 2020.
+    <br>
+      <br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>
+      <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
+        <img alt="Creative Commons License" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+  </body>
+</html>

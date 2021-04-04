@@ -1,0 +1,378 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Channels &#8212; hyperledger-fabricdocs master documentation</title>
+    
+  <link rel="stylesheet" href="_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="CouchDB as the State Database" href="couchdb_as_state_database.html" />
+    <link rel="prev" title="Defining capability requirements" href="capability_requirements.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+<div class="container-xl">
+
+    <a class="navbar-brand" href="index.html">
+    
+      <p class="title">hyperledger-fabricdocs</p>
+    
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="intro.html">Introduction</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="whatsnew.html">What’s new in Hyperledger Fabric v2.x</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href=""></a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="key_concepts.html">Key Concepts</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="getting_started.html">Getting Started - Install</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="getting_started_run_fabric.html">Getting Started - Run Fabric</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="developapps/developing_applications.html">Developing Applications</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="tutorials.html">Tutorials</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="deployment_guide_overview.html">Deploying a production network</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="ops_guide.html">Operations Guides</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="upgrade.html">Upgrading to the latest release</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="command_ref.html">Commands Reference</a>
+        </li>
+        
+        <li class="nav-item active">
+            <a class="nav-link" href="architecture.html">Architecture Reference</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="Fabric-FAQ.html">Frequently Asked Questions</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="CONTRIBUTING.html">Contributions Welcome!</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="glossary.html">Glossary</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="releases.html">Releases</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="questions.html">Still Have Questions?</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="status.html">Status</a>
+        </li>
+        
+        
+      </ul>
+
+
+      
+
+      <ul class="navbar-nav">
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+          <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+    <div class="bd-toc-item active">
+    
+  
+    <ul class="nav bd-sidenav">
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+          
+            
+                <li class="">
+                    <a href="http://hyperledger-fabric-ca.readthedocs.io/en/latest">Hyperledger Fabric CA's User Guide</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="fabric-sdks.html">Hyperledger Fabric SDKs</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="txflow.html">Transaction Flow</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="discovery-overview.html">Service Discovery</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="capability_requirements.html">Defining capability requirements</a>
+                </li>
+            
+          
+            
+                <li class="active">
+                    <a href="">Channels</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="couchdb_as_state_database.html">CouchDB as the State Database</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="peer_event_services.html">Peer channel-based event services</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="private-data-arch.html">Private Data</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="readwrite.html">Read-Write set semantics</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="gossip.html">Gossip data dissemination protocol</a>
+                </li>
+            
+          
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      </ul>
+  
+  </nav>
+          </div>
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+    </ul>
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="channels">
+<h1>Channels<a class="headerlink" href="#channels" title="Permalink to this headline">¶</a></h1>
+<p>A Hyperledger Fabric <code class="docutils literal notranslate"><span class="pre">channel</span></code> is a private “subnet” of communication between
+two or more specific network members, for the purpose of conducting private and
+confidential transactions. A channel is defined by members (organizations),
+anchor peers per member, the shared ledger, chaincode application(s) and the ordering service
+node(s). Each transaction on the network is executed on a channel, where each
+party must be authenticated and authorized to transact on that channel.
+Each peer that joins a channel, has its own identity given by a membership services provider (MSP),
+which authenticates each peer to its channel peers and services.</p>
+<p>To create a new channel, the client SDK calls configuration system chaincode
+and references properties such as <code class="docutils literal notranslate"><span class="pre">anchor</span> <span class="pre">peers</span></code>, and members (organizations).
+This request creates a <code class="docutils literal notranslate"><span class="pre">genesis</span> <span class="pre">block</span></code> for the channel ledger, which stores configuration
+information about the channel policies, members and anchor peers. When adding a
+new member to an existing channel, either this genesis block, or if applicable,
+a more recent reconfiguration block, is shared with the new member.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>See the <a class="reference internal" href="configtx.html"><span class="doc">Channel Configuration (configtx)</span></a> section for more details on the properties
+and proto structures of config transactions.</p>
+</div>
+<p>The election of a <code class="docutils literal notranslate"><span class="pre">leading</span> <span class="pre">peer</span></code> for each member on a channel determines which
+peer communicates with the ordering service on behalf of the member. If no
+leader is identified, an algorithm can be used to identify the leader. The consensus
+service orders transactions and delivers them, in a block, to each leading peer,
+which then distributes the block to its member peers, and across the channel,
+using the <code class="docutils literal notranslate"><span class="pre">gossip</span></code> protocol.</p>
+<p>Although any one anchor peer can belong to multiple channels, and therefore
+maintain multiple ledgers, no ledger data can pass from one channel to another.
+This separation of ledgers, by channel, is defined and implemented by
+configuration chaincode, the identity membership service and the gossip data
+dissemination protocol. The dissemination of data, which includes information on
+transactions, ledger state and channel membership, is restricted to peers with
+verifiable membership on the channel. This isolation of peers and ledger data,
+by channel, allows network members that require private and confidential
+transactions to coexist with business competitors and other restricted members,
+on the same blockchain network.</p>
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="capability_requirements.html" title="previous page">Defining capability requirements</a>
+    <a class='right-next' id="next-link" href="couchdb_as_state_database.html" title="next page">CouchDB as the State Database</a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    
+  <script src="_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright Hyperledger 2020.
+    <br>
+      <br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>
+      <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
+        <img alt="Creative Commons License" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+  </body>
+</html>

@@ -1,0 +1,522 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Enabling the new chaincode lifecycle &#8212; hyperledger-fabricdocs master documentation</title>
+    
+  <link rel="stylesheet" href="_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Commands Reference" href="command_ref.html" />
+    <link rel="prev" title="Updating the capability level of a channel" href="updating_capabilities.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+<div class="container-xl">
+
+    <a class="navbar-brand" href="index.html">
+    
+      <p class="title">hyperledger-fabricdocs</p>
+    
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="intro.html">Introduction</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="whatsnew.html">What’s new in Hyperledger Fabric v2.x</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href=""></a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="key_concepts.html">Key Concepts</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="getting_started.html">Getting Started - Install</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="getting_started_run_fabric.html">Getting Started - Run Fabric</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="developapps/developing_applications.html">Developing Applications</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="tutorials.html">Tutorials</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="deployment_guide_overview.html">Deploying a production network</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="ops_guide.html">Operations Guides</a>
+        </li>
+        
+        <li class="nav-item active">
+            <a class="nav-link" href="upgrade.html">Upgrading to the latest release</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="command_ref.html">Commands Reference</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="architecture.html">Architecture Reference</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="Fabric-FAQ.html">Frequently Asked Questions</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="CONTRIBUTING.html">Contributions Welcome!</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="glossary.html">Glossary</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="releases.html">Releases</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="questions.html">Still Have Questions?</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="status.html">Status</a>
+        </li>
+        
+        
+      </ul>
+
+
+      
+
+      <ul class="navbar-nav">
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+          <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+    <div class="bd-toc-item active">
+    
+  
+    <ul class="nav bd-sidenav">
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+          
+            
+                <li class="">
+                    <a href="upgrade_to_newest_version.html">Considerations for getting to v2.x</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="upgrading_your_components.html">Upgrading your components</a>
+                </li>
+            
+          
+            
+                <li class="">
+                    <a href="updating_capabilities.html">Updating the capability level of a channel</a>
+                </li>
+            
+          
+            
+                <li class="active">
+                    <a href="">Enabling the new chaincode lifecycle</a>
+                </li>
+            
+          
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      </ul>
+  
+  </nav>
+          </div>
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#create-enable-lifecycle-json" class="nav-link">Create enable_lifecycle.json</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#edit-the-channel-configurations" class="nav-link">Edit the channel configurations</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#edit-the-peer-organizations" class="nav-link">Edit the peer organizations</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#edit-the-application-channels" class="nav-link">Edit the application channels</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#edit-channel-acls-optional" class="nav-link">Edit channel ACLs (optional)</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#enable-new-lifecycle-in-core-yaml" class="nav-link">Enable new lifecycle in core.yaml</a>
+        </li>
+    
+    </ul>
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="enabling-the-new-chaincode-lifecycle">
+<h1>Enabling the new chaincode lifecycle<a class="headerlink" href="#enabling-the-new-chaincode-lifecycle" title="Permalink to this headline">¶</a></h1>
+<p>Users upgrading from v1.4.x to v2.x will have to edit their channel configurations to enable the new lifecycle features. This process involves a series of <a class="reference external" href="./config_update.html">channel configuration updates</a> the relevant users will have to perform.</p>
+<p>Note that the <code class="docutils literal notranslate"><span class="pre">Channel</span></code> and <code class="docutils literal notranslate"><span class="pre">Application</span></code> <a class="reference external" href="./capabilities_concept.html">capabilities</a> of your application channels will have to be updated to <code class="docutils literal notranslate"><span class="pre">V2_0</span></code> for the new chaincode lifecycle to work. Check out <a class="reference external" href="./upgrade_to_newest_version.html#chaincode-lifecycle">Considerations for getting to 2.0</a> for more information.</p>
+<p>Updating a channel configuration is, at a high level, a three step process (for each channel):</p>
+<ol class="simple">
+<li><p>Get the latest channel config</p></li>
+<li><p>Create a modified channel config</p></li>
+<li><p>Create a config update transaction</p></li>
+</ol>
+<p>We will be performing these channel configuration updates by leveraging a file called <code class="docutils literal notranslate"><span class="pre">enable_lifecycle.json</span></code>, which contains all of the updates we will be making in the channel configurations. Note that in a production setting it is likely that multiple users would be making these channel update requests. However, for the sake of simplicity, we are presenting all of the updates as how they would appear in a single file.</p>
+<p>Note: this topic describes a network that does not use a “system channel”, a channel that the ordering service is bootstrapped with and the ordering service exclusively controls. Since the release of v2.3, using a system channel is now considered the legacy process as compared to the new process to <a class="reference external" href="./create_channel/create_channel_participation.html">Create a channel</a> without a system channel. For a version of this topic that includes information about the system channel, check out <a class="reference external" href="https://hyperledger-fabric.readthedocs.io/en/release-2.2/enable_cc_lifecycle.html">Enabling the new chaincode lifecycle</a> from the v2.2 documentation.</p>
+<div class="section" id="create-enable-lifecycle-json">
+<h2>Create <code class="docutils literal notranslate"><span class="pre">enable_lifecycle.json</span></code><a class="headerlink" href="#create-enable-lifecycle-json" title="Permalink to this headline">¶</a></h2>
+<p>Note that in addition to using <code class="docutils literal notranslate"><span class="pre">enable_lifecycle.json</span></code>, this tutorial also uses <code class="docutils literal notranslate"><span class="pre">jq</span></code> to apply the edits to the modified config file. The modified config can also be edited manually (after it has been pulled, translated, and scoped). Check out this <a class="reference external" href="./config_update.html#sample-channel-configuration">sample channel configuration</a> for reference.</p>
+<p>However, the process described here (using a JSON file and a tool like <code class="docutils literal notranslate"><span class="pre">jq</span></code>) does have the advantage of being scriptable, making it suitable for proposing configuration updates to a large number of channels, and is the recommended process for editing a channel configuration.</p>
+<p>Note that the <code class="docutils literal notranslate"><span class="pre">enable_lifecycle.json</span></code> uses sample values, for example <code class="docutils literal notranslate"><span class="pre">org1Policies</span></code> and the <code class="docutils literal notranslate"><span class="pre">Org1ExampleCom</span></code>, which will be specific to your deployment):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;org1Policies&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">&quot;Endorsement&quot;</span><span class="p">:</span> <span class="p">{</span>
+           <span class="s2">&quot;mod_policy&quot;</span><span class="p">:</span> <span class="s2">&quot;Admins&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;policy&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+               <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="s2">&quot;identities&quot;</span><span class="p">:</span> <span class="p">[</span>
+                  <span class="p">{</span>
+	                 <span class="s2">&quot;principal&quot;</span><span class="p">:</span> <span class="p">{</span>
+	           	         <span class="s2">&quot;msp_identifier&quot;</span><span class="p">:</span> <span class="s2">&quot;Org1ExampleCom&quot;</span><span class="p">,</span>
+	           	         <span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;PEER&quot;</span>
+	                 <span class="p">},</span>
+	                 <span class="s2">&quot;principal_classification&quot;</span><span class="p">:</span> <span class="s2">&quot;ROLE&quot;</span>
+	              <span class="p">}</span>
+              	<span class="p">],</span>
+              	<span class="s2">&quot;rule&quot;</span><span class="p">:</span> <span class="p">{</span>
+                  <span class="s2">&quot;n_out_of&quot;</span><span class="p">:</span> <span class="p">{</span>
+			           <span class="s2">&quot;n&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+			           <span class="s2">&quot;rules&quot;</span><span class="p">:</span> <span class="p">[</span>
+			           	<span class="p">{</span>
+			           		<span class="s2">&quot;signed_by&quot;</span><span class="p">:</span> <span class="mi">0</span>
+			           	<span class="p">}</span>
+			           <span class="p">]</span>
+			       <span class="p">}</span>
+              	<span class="p">},</span>
+              	<span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="mi">0</span>
+              <span class="p">}</span>
+           <span class="p">},</span>
+           <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;0&quot;</span>
+      <span class="p">}</span>
+   <span class="p">},</span>
+  <span class="s2">&quot;org2Policies&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">&quot;Endorsement&quot;</span><span class="p">:</span> <span class="p">{</span>
+           <span class="s2">&quot;mod_policy&quot;</span><span class="p">:</span> <span class="s2">&quot;Admins&quot;</span><span class="p">,</span>
+           <span class="s2">&quot;policy&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+               <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">{</span>
+               <span class="s2">&quot;identities&quot;</span><span class="p">:</span> <span class="p">[</span>
+                  <span class="p">{</span>
+	                 <span class="s2">&quot;principal&quot;</span><span class="p">:</span> <span class="p">{</span>
+	           	         <span class="s2">&quot;msp_identifier&quot;</span><span class="p">:</span> <span class="s2">&quot;Org2ExampleCom&quot;</span><span class="p">,</span>
+	           	         <span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;PEER&quot;</span>
+	                 <span class="p">},</span>
+	                 <span class="s2">&quot;principal_classification&quot;</span><span class="p">:</span> <span class="s2">&quot;ROLE&quot;</span>
+	              <span class="p">}</span>
+              	<span class="p">],</span>
+              	<span class="s2">&quot;rule&quot;</span><span class="p">:</span> <span class="p">{</span>
+                  <span class="s2">&quot;n_out_of&quot;</span><span class="p">:</span> <span class="p">{</span>
+			           <span class="s2">&quot;n&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+			           <span class="s2">&quot;rules&quot;</span><span class="p">:</span> <span class="p">[</span>
+			           	<span class="p">{</span>
+			           		<span class="s2">&quot;signed_by&quot;</span><span class="p">:</span> <span class="mi">0</span>
+			           	<span class="p">}</span>
+			           <span class="p">]</span>
+			       <span class="p">}</span>
+              	<span class="p">},</span>
+              	<span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="mi">0</span>
+              <span class="p">}</span>
+           <span class="p">},</span>
+           <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;0&quot;</span>
+      <span class="p">}</span>
+   <span class="p">},</span>
+   <span class="s2">&quot;appPolicies&quot;</span><span class="p">:</span> <span class="p">{</span>
+ 		<span class="s2">&quot;Endorsement&quot;</span><span class="p">:</span> <span class="p">{</span>
+			<span class="s2">&quot;mod_policy&quot;</span><span class="p">:</span> <span class="s2">&quot;Admins&quot;</span><span class="p">,</span>
+			<span class="s2">&quot;policy&quot;</span><span class="p">:</span> <span class="p">{</span>
+				<span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+				<span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">{</span>
+					<span class="s2">&quot;rule&quot;</span><span class="p">:</span> <span class="s2">&quot;MAJORITY&quot;</span><span class="p">,</span>
+					<span class="s2">&quot;sub_policy&quot;</span><span class="p">:</span> <span class="s2">&quot;Endorsement&quot;</span>
+				<span class="p">}</span>
+			<span class="p">},</span>
+			<span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;0&quot;</span>
+		<span class="p">},</span>
+		<span class="s2">&quot;LifecycleEndorsement&quot;</span><span class="p">:</span> <span class="p">{</span>
+			<span class="s2">&quot;mod_policy&quot;</span><span class="p">:</span> <span class="s2">&quot;Admins&quot;</span><span class="p">,</span>
+			<span class="s2">&quot;policy&quot;</span><span class="p">:</span> <span class="p">{</span>
+				<span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+				<span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">{</span>
+					<span class="s2">&quot;rule&quot;</span><span class="p">:</span> <span class="s2">&quot;MAJORITY&quot;</span><span class="p">,</span>
+					<span class="s2">&quot;sub_policy&quot;</span><span class="p">:</span> <span class="s2">&quot;Endorsement&quot;</span>
+				<span class="p">}</span>
+			<span class="p">},</span>
+			<span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;0&quot;</span>
+		<span class="p">}</span>
+   <span class="p">},</span>
+   <span class="s2">&quot;acls&quot;</span><span class="p">:</span> <span class="p">{</span>
+		<span class="s2">&quot;_lifecycle/CheckCommitReadiness&quot;</span><span class="p">:</span> <span class="p">{</span>
+			<span class="s2">&quot;policy_ref&quot;</span><span class="p">:</span> <span class="s2">&quot;/Channel/Application/Writers&quot;</span>
+		<span class="p">},</span>
+		<span class="s2">&quot;_lifecycle/CommitChaincodeDefinition&quot;</span><span class="p">:</span> <span class="p">{</span>
+			<span class="s2">&quot;policy_ref&quot;</span><span class="p">:</span> <span class="s2">&quot;/Channel/Application/Writers&quot;</span>
+		<span class="p">},</span>
+		<span class="s2">&quot;_lifecycle/QueryChaincodeDefinition&quot;</span><span class="p">:</span> <span class="p">{</span>
+			<span class="s2">&quot;policy_ref&quot;</span><span class="p">:</span> <span class="s2">&quot;/Channel/Application/Writers&quot;</span>
+		<span class="p">},</span>
+		<span class="s2">&quot;_lifecycle/QueryChaincodeDefinitions&quot;</span><span class="p">:</span> <span class="p">{</span>
+			<span class="s2">&quot;policy_ref&quot;</span><span class="p">:</span> <span class="s2">&quot;/Channel/Application/Writers&quot;</span>
+		<span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Note: the “role” field of these new policies should say <code class="docutils literal notranslate"><span class="pre">'PEER'</span></code> if <a class="reference external" href="./msp.html#organizational-units">NodeOUs</a> are enabled for the org, and <code class="docutils literal notranslate"><span class="pre">'MEMBER'</span></code> if they are not.</strong></p>
+</div>
+<div class="section" id="edit-the-channel-configurations">
+<h2>Edit the channel configurations<a class="headerlink" href="#edit-the-channel-configurations" title="Permalink to this headline">¶</a></h2>
+<p>To fully enable the new chaincode lifecycle, you must first edit the configuration of your own organization as it exists in a channel configuration, and then you must update the channel itself to include a default endorsement policy for the channel. You can then optionally update your channel access control list.</p>
+<p>Note: this topic leverages the instructions on how to update a channel configuration that are found in the <a class="reference external" href="./config_update.html">Updating a channel configuration</a> tutorial. The environment variables listed here work in conjunction with those commands to update your channels.</p>
+<div class="section" id="edit-the-peer-organizations">
+<h3>Edit the peer organizations<a class="headerlink" href="#edit-the-peer-organizations" title="Permalink to this headline">¶</a></h3>
+<p>By default, peer organizations are able to make configuration update requests to their own organization on an application channel without needing the approval of any other peer organizations. However, if you are attempting to make a change to a different organization, that organization will have to approve the change.</p>
+<p>You will need to export the following variables:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">CH_NAME</span></code>: the name of the application channel being updated.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ORGNAME</span></code>: The name of the organization you are currently updating.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TLS_ROOT_CA</span></code>: the absolute path to the TLS cert of your ordering node.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CORE_PEER_MSPCONFIGPATH</span></code>: the absolute path to the MSP representing your organization.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CORE_PEER_LOCALMSPID</span></code>: the MSP ID of the organization proposing the channel update. This will be the MSP of one of the peer organizations.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ORDERER_CONTAINER</span></code>: the name of an ordering node container. When targeting the ordering service, you can target any particular node in the ordering service. Your requests will be forwarded to the leader automatically.</p></li>
+</ul>
+<p>Once you have set the environment variables, navigate to <a class="reference external" href="./config_update.html#step-1-pull-and-translate-the-config">Step 1: Pull and translate the config</a>.</p>
+<p>Then, add the lifecycle organization policy (as listed in <code class="docutils literal notranslate"><span class="pre">enable_lifecycle.json</span></code>) to a file called <code class="docutils literal notranslate"><span class="pre">modified_config.json</span></code> using this command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">jq</span> <span class="o">-</span><span class="n">s</span> <span class="s2">&quot;.[0] * {</span><span class="se">\&quot;</span><span class="s2">channel_group</span><span class="se">\&quot;</span><span class="s2">:{</span><span class="se">\&quot;</span><span class="s2">groups</span><span class="se">\&quot;</span><span class="s2">:{</span><span class="se">\&quot;</span><span class="s2">Application</span><span class="se">\&quot;</span><span class="s2">: {</span><span class="se">\&quot;</span><span class="s2">groups</span><span class="se">\&quot;</span><span class="s2">: {</span><span class="se">\&quot;</span><span class="s2">$ORGNAME</span><span class="se">\&quot;</span><span class="s2">: {</span><span class="se">\&quot;</span><span class="s2">policies</span><span class="se">\&quot;</span><span class="s2">: .[1].$</span><span class="si">{ORGNAME}</span><span class="s2">Policies}}}}}}&quot;</span> <span class="n">config</span><span class="o">.</span><span class="n">json</span> <span class="o">./</span><span class="n">enable_lifecycle</span><span class="o">.</span><span class="n">json</span> <span class="o">&gt;</span> <span class="n">modified_config</span><span class="o">.</span><span class="n">json</span>
+</pre></div>
+</div>
+<p>Then, follow the steps at <a class="reference external" href="./config_update.html#step-3-re-encode-and-submit-the-config">Step 3: Re-encode and submit the config</a>.</p>
+</div>
+<div class="section" id="edit-the-application-channels">
+<h3>Edit the application channels<a class="headerlink" href="#edit-the-application-channels" title="Permalink to this headline">¶</a></h3>
+<p>After all of the application channels have been <a class="reference external" href="./upgrade_to_newest_version.html#capabilities">updated to include V2_0 capabilities</a>, endorsement policies for the new chaincode lifecycle must be added to each channel.</p>
+<p>You can set the same environment variables you set when updating the peer organizations. Note that in this case you will not be updating the configuration of an org in the configuration, so the <code class="docutils literal notranslate"><span class="pre">ORGNAME</span></code> variable will not be used.</p>
+<p>Once you have set the environment variables, navigate to <a class="reference external" href="./config_update.html#step-1-pull-and-translate-the-config">Step 1: Pull and translate the config</a>.</p>
+<p>Then, add the lifecycle organization policy (as listed in <code class="docutils literal notranslate"><span class="pre">enable_lifecycle.json</span></code>) to a file called <code class="docutils literal notranslate"><span class="pre">modified_config.json</span></code> using this command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">jq</span> <span class="o">-</span><span class="n">s</span> <span class="s1">&#39;.[0] * {&quot;channel_group&quot;:{&quot;groups&quot;:{&quot;Application&quot;: {&quot;policies&quot;: .[1].appPolicies}}}}&#39;</span> <span class="n">config</span><span class="o">.</span><span class="n">json</span> <span class="o">./</span><span class="n">enable_lifecycle</span><span class="o">.</span><span class="n">json</span> <span class="o">&gt;</span> <span class="n">modified_config</span><span class="o">.</span><span class="n">json</span>
+</pre></div>
+</div>
+<p>Then, follow the steps at <a class="reference external" href="./config_update.html#step-3-re-encode-and-submit-the-config">Step 3: Re-encode and submit the config</a>.</p>
+<p>For this channel update to be approved, the policy for modifying the <code class="docutils literal notranslate"><span class="pre">Channel/Application</span></code> section of the configuration must be satisfied. By default, this is a <code class="docutils literal notranslate"><span class="pre">MAJORITY</span></code> of the peer organizations on the channel.</p>
+<div class="section" id="edit-channel-acls-optional">
+<h4>Edit channel ACLs (optional)<a class="headerlink" href="#edit-channel-acls-optional" title="Permalink to this headline">¶</a></h4>
+<p>The following <a class="reference external" href="./access_control.html">Access Control List (ACL)</a> in <code class="docutils literal notranslate"><span class="pre">enable_lifecycle.json</span></code> are the default values for the new lifecycle, though you have the option to change them depending on your use case.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;acls&quot;</span><span class="p">:</span> <span class="p">{</span>
+ <span class="s2">&quot;_lifecycle/CheckCommitReadiness&quot;</span><span class="p">:</span> <span class="p">{</span>
+   <span class="s2">&quot;policy_ref&quot;</span><span class="p">:</span> <span class="s2">&quot;/Channel/Application/Writers&quot;</span>
+ <span class="p">},</span>
+ <span class="s2">&quot;_lifecycle/CommitChaincodeDefinition&quot;</span><span class="p">:</span> <span class="p">{</span>
+   <span class="s2">&quot;policy_ref&quot;</span><span class="p">:</span> <span class="s2">&quot;/Channel/Application/Writers&quot;</span>
+ <span class="p">},</span>
+ <span class="s2">&quot;_lifecycle/QueryChaincodeDefinition&quot;</span><span class="p">:</span> <span class="p">{</span>
+   <span class="s2">&quot;policy_ref&quot;</span><span class="p">:</span> <span class="s2">&quot;/Channel/Application/Readers&quot;</span>
+ <span class="p">},</span>
+ <span class="s2">&quot;_lifecycle/QueryChaincodeDefinitions&quot;</span><span class="p">:</span> <span class="p">{</span>
+   <span class="s2">&quot;policy_ref&quot;</span><span class="p">:</span> <span class="s2">&quot;/Channel/Application/Readers&quot;</span>
+</pre></div>
+</div>
+<p>You can leave the same environment in place as when you previously edited application channels.</p>
+<p>Once you have the environment variables set, navigate to <a class="reference external" href="./config_update.html#step-1-pull-and-translate-the-config">Step 1: Pull and translate the config</a>.</p>
+<p>Then, add the ACLs (as listed in <code class="docutils literal notranslate"><span class="pre">enable_lifecycle.json</span></code>) and create a file called <code class="docutils literal notranslate"><span class="pre">modified_config.json</span></code> using this command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">jq</span> <span class="o">-</span><span class="n">s</span> <span class="s1">&#39;.[0] * {&quot;channel_group&quot;:{&quot;groups&quot;:{&quot;Application&quot;: {&quot;values&quot;: {&quot;ACLs&quot;: {&quot;value&quot;: {&quot;acls&quot;: .[1].acls}}}}}}}&#39;</span> <span class="n">config</span><span class="o">.</span><span class="n">json</span> <span class="o">./</span><span class="n">enable_lifecycle</span><span class="o">.</span><span class="n">json</span> <span class="o">&gt;</span> <span class="n">modified_config</span><span class="o">.</span><span class="n">json</span>
+</pre></div>
+</div>
+<p>Then, follow the steps at <a class="reference external" href="./config_update.html#step-3-re-encode-and-submit-the-config">Step 3: Re-encode and submit the config</a>.</p>
+<p>For this channel update to be approved, the policy for modifying the <code class="docutils literal notranslate"><span class="pre">Channel/Application</span></code> section of the configuration must be satisfied. By default, this is a <code class="docutils literal notranslate"><span class="pre">MAJORITY</span></code> of the peer organizations on the channel.</p>
+</div>
+</div>
+</div>
+<div class="section" id="enable-new-lifecycle-in-core-yaml">
+<h2>Enable new lifecycle in <code class="docutils literal notranslate"><span class="pre">core.yaml</span></code><a class="headerlink" href="#enable-new-lifecycle-in-core-yaml" title="Permalink to this headline">¶</a></h2>
+<p>If you follow <a class="reference external" href="./upgrading_your_components.html#overview">the recommended process</a> for using a tool like <code class="docutils literal notranslate"><span class="pre">diff</span></code> to compare the new version of <code class="docutils literal notranslate"><span class="pre">core.yaml</span></code> packaged with the binaries with your old one, you will not need to add <code class="docutils literal notranslate"><span class="pre">_lifecycle:</span> <span class="pre">enable</span></code> to the list of enabled system chaincodes because the new <code class="docutils literal notranslate"><span class="pre">core.yaml</span></code> has added it under <code class="docutils literal notranslate"><span class="pre">chaincode/system</span></code>.</p>
+<p>However, if you are updating your old node YAML file directly, you will have to add <code class="docutils literal notranslate"><span class="pre">_lifecycle:</span> <span class="pre">enable</span></code> to the list of enabled system chaincodes.</p>
+<p>For more information about upgrading nodes, check out <a class="reference external" href="./upgrading_your_components.html">Upgrading your components</a>.</p>
+<!--- Licensed under Creative Commons Attribution 4.0 International License
+https://creativecommons.org/licenses/by/4.0/ --></div>
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="updating_capabilities.html" title="previous page">Updating the capability level of a channel</a>
+    <a class='right-next' id="next-link" href="command_ref.html" title="next page">Commands Reference</a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    
+  <script src="_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright Hyperledger 2020.
+    <br>
+      <br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>
+      <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
+        <img alt="Creative Commons License" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a>
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+  </body>
+</html>
